@@ -46,6 +46,7 @@ function main_menu () {
         echo "3. 安裝GO"
         echo "4. 安裝Python"
         echo "--------------------節點類項目--------------------"
+        echo "101. Allora 一鍵部署"
         echo "--------------------挖礦類項目--------------------"
         echo "---------------------已停項目---------------------"
         echo "-----------------------其他----------------------"
@@ -57,6 +58,7 @@ function main_menu () {
         2) install_docker ;;
         3) install_go ;;
         4) install_python ;;
+        101) wget -O allora.sh https://raw.githubusercontent.com/taiwanJK/Node/main/allora.sh && chmod +x allora.sh && ./allora.sh ;;
         0) echo "退出腳本。"; exit 0 ;;
 	    *) echo "無效選項，請重新輸入。"; sleep 3 ;;
 	    esac

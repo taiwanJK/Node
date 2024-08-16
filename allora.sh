@@ -33,8 +33,11 @@ function main_menu () {
 	while true; do
 	    clear
 		echo "請選擇要執行的操作:"
+        echo "-----------------------安裝----------------------"
 	    echo "1. 安裝allorad"
+        echo "-----------------------修復----------------------"
         echo "101. 修復安裝worker節點 Dockerfile_b7s不存在問題"
+        echo "-----------------------其他----------------------"
 	    echo "0. 退出脚本 exit"
 	    read -p "请输入选项: " OPTION
 	

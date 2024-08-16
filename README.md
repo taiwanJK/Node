@@ -1,1 +1,1 @@
-README
+wget -O init.sh https://raw.githubusercontent.com/taiwanJK/Node/main/init.sh && chmod +x init.sh && ./init.sh
