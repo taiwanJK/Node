@@ -5,7 +5,7 @@ function install_allorad () {
     cd allora-chain
     # 切換版本到v0.2.14
     git fetch --tags
-    git checkout v0.2.14
+    git checkout v0.3.0-upgrade
     # go
     export PATH=$PATH:/usr/local/go/bin
     source ~/.profile
