@@ -11,7 +11,7 @@ function install_allorad () {
     source ~/.profile
     # 安裝 allorad
     make all
-    allorad version
+    $HOME/go/bin/allorad version
 }
 
 function fix_worker_dockerfile_b7s () {
