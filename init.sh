@@ -25,6 +25,7 @@ function install_go () {
     export PATH=$PATH:/usr/local/go/bin
     source ~/.profile
     go version
+    rm go1.22.6.linux-amd64.tar.gz
 }
 
 function install_python () {
