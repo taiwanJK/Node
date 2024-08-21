@@ -3,9 +3,13 @@
 function install_allorad () {
     git clone https://github.com/allora-network/allora-chain.git
     cd allora-chain
-    # 切換版本到v0.2.14
+    # 切換版本到v0.3.0
     git fetch --tags
-    git checkout v0.3.0-upgrade
+    git checkout v0.3.0
+    # 修改docker image版本
+    sed -i 's|alloranetwork/allora-chain:v0.2.14|alloranetwork/allora-chain:v0.3.0|g' $HOME/allora-chain/docker-compose.yaml
+    # 修改l1_node.sh
+    sed -i 's|allorad \\|/cosmovisor/upgrades/v0.3.0/bin/allorad \\|g' $HOME/allora-chain/scripts/l1_node.sh
     # go
     export PATH=$PATH:/usr/local/go/bin
     source ~/.profile
@@ -30,6 +34,10 @@ EOF
     docker compose build && docker compose up -d
 }
 
+function fetch_wallet_info  () {
+    $HOME/go/bin/allorad keys show wallet
+}
+
 # 主選單
 function main_menu () {
 	while true; do
@@ -40,12 +48,14 @@ function main_menu () {
         echo "-----------------------修復----------------------"
         echo "101. 修復安裝worker節點 Dockerfile_b7s不存在問題"
         echo "-----------------------其他----------------------"
+        echo "201. 查詢錢包資訊"
 	    echo "0. 退出脚本 exit"
 	    read -p "请输入选项: " OPTION
 	
 	    case $OPTION in
 	    1) install_allorad ;;
         101) fix_worker_dockerfile_b7s ;;
+        201) fetch_wallet_info ;;
 	    0) echo "退出腳本。"; exit 0 ;;
 	    *) echo "無效選項，請重新輸入。"; sleep 3 ;;
 	    esac
