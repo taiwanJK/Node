@@ -3,7 +3,7 @@
 function init () {
     # 更新套件列表並安裝一些必要的套件
 	sudo apt update && sudo apt upgrade -y
-    sudo apt install ca-certificates zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev curl git wget make jq build-essential pkg-config lsb-release libssl-dev libreadline-dev libffi-dev gcc screen unzip lz4 vim -y
+    sudo apt install ca-certificates zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev curl git wget make jq build-essential pkg-config lsb-release libssl-dev libreadline-dev libffi-dev gcc screen unzip lz4 vim nano -y
 }
 
 function install_docker () {
@@ -20,12 +20,13 @@ function install_docker () {
 }
 
 function install_go () {
-    wget https://golang.org/dl/go1.22.6.linux-amd64.tar.gz
-    tar -C /usr/local -xzf go1.22.6.linux-amd64.tar.gz
+    wget https://go.dev/dl/go1.23.2.linux-amd64.tar.gz
+    sudo tar -C /usr/local -xzf go1.23.2.linux-amd64.tar.gz
     export PATH=$PATH:/usr/local/go/bin
-    source ~/.profile
-    go version
-    rm go1.22.6.linux-amd64.tar.gz
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+    source ~/.bashrc
+    rm go1.23.2.linux-amd64.tar.gz
+    echo "Go 安装完成，版本: $(go version) / Go installation completed, version: $(go version)"
 }
 
 function install_python () {

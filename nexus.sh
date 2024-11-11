@@ -1,0 +1,1 @@
+sudo apt install iptables automake autoconf tmux htop nvme-cli clang bsdmainutils ncdu libleveldb-dev  -y
