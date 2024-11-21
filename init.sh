@@ -50,6 +50,7 @@ function main_menu () {
         echo "--------------------節點類項目--------------------"
         echo "101. Allora 一鍵部署"
         echo "--------------------挖礦類項目--------------------"
+        echo "201. Bless 一鍵部署"
         echo "---------------------已停項目---------------------"
         echo "-----------------------其他----------------------"
         echo "0. 退出腳本exit"
@@ -61,6 +62,7 @@ function main_menu () {
         3) install_go ;;
         4) install_python ;;
         101) wget -O allora.sh https://raw.githubusercontent.com/taiwanJK/Node/main/allora.sh && chmod +x allora.sh && ./allora.sh ;;
+        101) wget -O bless.sh https://raw.githubusercontent.com/taiwanJK/Node/main/bless.sh && chmod +x bless.sh && ./bless.sh ;;
         0) echo "退出腳本。"; exit 0 ;;
 	    *) echo "無效選項，請重新輸入。"; sleep 3 ;;
 	    esac
