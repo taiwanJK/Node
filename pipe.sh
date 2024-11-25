@@ -16,7 +16,10 @@ function install_pipe () {
 
     # 启动节点
     echo "启动节点..."
-    screen -S Pipe -p 0 -X stuff 'sudo python3 main.py\n'
+    screen -S Pipe -p 0 -X stuff 'sudo python3 $HOME/pipe/main.py\n'
+
+    # 輸入選項1，開始運行節點
+    screen -S Pipe -p 0 -X stuff '1\n'
 
     # 提示用户按任意鍵返回主選單
     read -n 1 -s -r -p "按任意鍵返回主選單..."
