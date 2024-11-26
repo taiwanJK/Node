@@ -32,6 +32,9 @@ function install_nodepay () {
     echo "啟動節點..."
     screen -S Nodepay -p 0 -X stuff 'node index.js\n'
 
+    # 手動操作
+    echo "請進入screen會話, 完成剩餘操作"
+
     # 提示用户按任意鍵返回主選單
     read -n 1 -s -r -p "按任意鍵返回主選單..."
 }
