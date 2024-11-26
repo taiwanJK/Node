@@ -1,24 +1,26 @@
-const axios = require('axios');
+const axios = require('axios'); 
 const crypto = require('crypto');
 const { SocksProxyAgent } = require('socks-proxy-agent');
-const ProxyChecker = require('./proxyChecker');
+const ProxyChecker = require('./proxyChecker'); 
+
 
 class Bot {
   constructor(config, logger) {
-    this.config = config;
-    this.logger = logger;
-    this.proxyCheck = new ProxyChecker(config, logger);
+    this.config = config; 
+    this.logger = logger; 
+    this.proxyCheck = new ProxyChecker(config, logger); 
   }
+
 
   async connect(token, proxy = null) {
     try {
-      const userAgent = 'Mozilla/5.0 ... Safari/537.3';
-      const accountInfo = await this.getSession(token, userAgent, proxy);
+      const userAgent = 'Mozilla/5.0 ... Safari/537.3'; 
+      const accountInfo = await this.getSession(token, userAgent, proxy); 
 
       console.log(
-        `✅ ${'Connected to session'.green} for UID: ${accountInfo.uid}`
+        `✅ ${'已连接到会话'.green} UID: ${accountInfo.uid}` 
       );
-      this.logger.info('Session info', {
+      this.logger.info('会话信息', {
         uid: accountInfo.uid,
         name: accountInfo.name,
         useProxy: !!proxy,
@@ -28,20 +30,27 @@ class Bot {
 
       const interval = setInterval(async () => {
         try {
-          await this.sendPing(accountInfo, token, userAgent, proxy);
+          await this.sendPing(accountInfo, token, userAgent, proxy); 
         } catch (error) {
-          console.log(`❌ ${'Ping error'.red}: ${error.message}`);
-          this.logger.error('Ping error', { error: error.message });
+          console.log(`❌ ${'心跳包错误'.red}: ${error.message}`);
+          this.logger.error('心跳包错误', { error: error.message });
         }
-      }, this.config.retryInterval);
+      }, this.config.retryInterval); 
 
-      process.on('SIGINT', () => clearInterval(interval));
+     
+      if (!process.listenerCount('SIGINT')) {
+        process.once('SIGINT', () => {
+          clearInterval(interval); 
+          console.log('\n👋 正在关闭...');
+        });
+      }
     } catch (error) {
-      console.log(`❌ ${'Connection error'.red}: ${error.message}`);
-      this.logger.error('Connection error', { error: error.message, proxy });
+      console.log(`❌ ${'连接错误'.red}: ${error.message}`);
+      this.logger.error('连接错误', { error: error.message, proxy });
     }
   }
 
+  // 获取会话信息
   async getSession(token, userAgent, proxy) {
     try {
       const config = {
@@ -58,23 +67,24 @@ class Bot {
         config.httpsAgent = this.buildSocksProxyAgent(proxy);
       }
 
-      const response = await axios.post(this.config.sessionURL, {}, config);
+      const response = await axios.post(this.config.sessionURL, {}, config); 
       return response.data.data;
     } catch (error) {
-      throw new Error('Session request failed');
+      throw new Error('会话请求失败');
     }
   }
 
+  
   async sendPing(accountInfo, token, userAgent, proxy) {
-    const uid = accountInfo.uid || crypto.randomBytes(8).toString('hex');
+    const uid = accountInfo.uid || crypto.randomBytes(8).toString('hex'); 
     const browserId =
-      accountInfo.browser_id || crypto.randomBytes(8).toString('hex');
+      accountInfo.browser_id || crypto.randomBytes(8).toString('hex'); 
 
     const pingData = {
       id: uid,
       browser_id: browserId,
-      timestamp: Math.floor(Date.now() / 1000),
-      version: '2.2.7',
+      timestamp: Math.floor(Date.now() / 1000), 
+      version: '2.2.7', 
     };
 
     try {
@@ -92,15 +102,15 @@ class Bot {
         config.httpsAgent = this.buildSocksProxyAgent(proxy);
       }
 
-      await axios.post(this.config.pingURL, pingData, config);
-      console.log(`📡 ${'Ping sent'.cyan} for UID: ${uid}`);
-      this.logger.info('Ping sent', {
+      await axios.post(this.config.pingURL, pingData, config); 
+      console.log(`📡 ${'已发送心跳包'.cyan} UID: ${uid}`);
+      this.logger.info('已发送心跳包', {
         uid,
         browserId,
-        ip: proxy ? proxy.host : 'direct',
+        ip: proxy ? proxy.host : '直连',
       });
     } catch (error) {
-      throw new Error('Ping request failed');
+      throw new Error('心跳包请求失败');
     }
   }
 
@@ -117,5 +127,6 @@ class Bot {
     return new SocksProxyAgent(proxyUrl);
   }
 }
+
 
 module.exports = Bot;
