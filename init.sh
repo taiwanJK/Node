@@ -36,6 +36,28 @@ function install_python () {
 	pip3 --version
 }
 
+function install_node () {
+    echo "Node.js 和 npm 未安装，正在安装..."
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+    sudo apt install -y nodejs
+
+    # 验证 Node.js 和 npm 是否安装成功
+    if command -v node &>/dev/null && command -v npm &>/dev/null; then
+        echo "Node.js 和 npm 安装成功!"
+    else
+        echo "Node.js 或 npm 安装失败，請檢查錯誤信息。"
+        exit 1
+    fi
+    else
+    echo "Node.js 和 npm 已安装，版本為:"
+    node -v
+    npm -v
+    fi
+
+    # 安裝 PM2
+    npm install -g pm2
+} 
+
 # 主選單
 function main_menu () {
     while true; do
@@ -47,6 +69,7 @@ function main_menu () {
         echo "2. 安裝Docker & Docker Compose"
         echo "3. 安裝GO"
         echo "4. 安裝Python"
+        echo "5. 安裝Node & PM2"
         echo "--------------------節點類項目--------------------"
         echo "101. Allora 一鍵部署"
         echo "--------------------挖礦類項目--------------------"
@@ -63,6 +86,7 @@ function main_menu () {
         2) install_docker ;;
         3) install_go ;;
         4) install_python ;;
+        5) install_node ;;
         101) wget -O allora.sh https://raw.githubusercontent.com/taiwanJK/Node/main/allora.sh && chmod +x allora.sh && ./allora.sh ;;
         201) wget -O bless.sh https://raw.githubusercontent.com/taiwanJK/Node/main/bless.sh && chmod +x bless.sh && ./bless.sh ;;
         202) wget -O pipe.sh https://raw.githubusercontent.com/taiwanJK/Node/main/pipe.sh && chmod +x pipe.sh && ./pipe.sh ;;
