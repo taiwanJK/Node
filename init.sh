@@ -48,11 +48,10 @@ function install_node () {
         echo "Node.js 或 npm 安装失败，請檢查錯誤信息。"
         exit 1
     fi
-    else
+
     echo "Node.js 和 npm 已安装，版本為:"
     node -v
     npm -v
-    fi
 
     # 安裝 PM2
     npm install -g pm2
