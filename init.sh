@@ -37,24 +37,41 @@ function install_python () {
 }
 
 function install_node () {
-    echo "Node.js 和 npm 未安装，正在安装..."
-    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-    sudo apt install -y nodejs
-
-    # 验证 Node.js 和 npm 是否安装成功
+    echo "检测 Node.js 和 npm 是否已安装..."
     if command -v node &>/dev/null && command -v npm &>/dev/null; then
-        echo "Node.js 和 npm 安装成功!"
+        echo "Node.js 和 npm 已安装，跳过安装步骤。"
+        echo "Node.js 版本: $(node -v)"
+        echo "npm 版本: $(npm -v)"
     else
-        echo "Node.js 或 npm 安装失败，請檢查錯誤信息。"
-        exit 1
+        echo "Node.js 和 npm 未安装，正在安装..."
+        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+        
+        if sudo apt install -y nodejs; then
+            echo "Node.js 和 npm 安装成功！"
+        else
+            echo "Node.js 或 npm 安装失败，请检查网络或权限问题。"
+            exit 1
+        fi
     fi
 
-    echo "Node.js 和 npm 已安装，版本為:"
-    node -v
-    npm -v
+    echo "验证 Node.js 和 npm 版本..."
+    node -v || { echo "Node.js 未正确安装，请检查。"; exit 1; }
+    npm -v || { echo "npm 未正确安装，请检查。"; exit 1; }
 
-    # 安裝 PM2
-    npm install -g pm2
+    echo "检测 PM2 是否已安装..."
+    if command -v pm2 &>/dev/null; then
+        echo "PM2 已安装，版本: $(pm2 -v)"
+    else
+        echo "正在安装 PM2..."
+        if npm install -g pm2; then
+            echo "PM2 安装成功，版本: $(pm2 -v)"
+        else
+            echo "PM2 安装失败，请检查网络或权限问题。"
+            exit 1
+        fi
+    fi
+
+    echo "所有组件已安装完毕。"
 } 
 
 # 主選單
