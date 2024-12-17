@@ -8,8 +8,11 @@ function install_pipe () {
     # 提示用户输入 token
     read -p "请输入您的 token: " USER_TOKEN
     
-    # 将 token 保存到 token.txt 文件中
-    echo "$USER_TOKEN" > token.txt
+    # 提示用户输入邮箱
+    read -p "请输入您的邮箱: " USER_EMAIL
+
+    # 将 token 和邮箱保存到 token.txt 文件中
+    echo "$USER_TOKEN,$USER_EMAIL" > token.txt
 
     # 建立screen會話
     screen -S Pipe -dm
