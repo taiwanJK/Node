@@ -110,7 +110,7 @@ function main_menu () {
         202) wget -O pipe.sh https://raw.githubusercontent.com/taiwanJK/Node/main/pipe.sh && chmod +x pipe.sh && ./pipe.sh ;;
         203) wget -O nodepay.sh https://raw.githubusercontent.com/taiwanJK/Node/main/nodepay.sh && chmod +x nodepay.sh && ./nodepay.sh ;;
         204) wget -O grass.sh https://raw.githubusercontent.com/taiwanJK/Node/main/grass.sh && chmod +x grass.sh && ./grass.sh ;;
-        205) wget -O grass.sh https://raw.githubusercontent.com/taiwanJK/Node/main/gradient.sh && chmod +x gradient.sh && ./gradient.sh ;;
+        205) wget -O gradient.sh https://raw.githubusercontent.com/taiwanJK/Node/main/gradient.sh && chmod +x gradient.sh && ./gradient.sh ;;
         0) echo "退出腳本。"; exit 0 ;;
 	    *) echo "無效選項，請重新輸入。"; sleep 3 ;;
 	    esac
