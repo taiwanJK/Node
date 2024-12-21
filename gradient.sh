@@ -8,6 +8,14 @@ function install_gradient () {
 	echo "开始克隆仓库..."
 	git clone https://github.com/sdohuajia/Gradient.git "$REPO_DIR"
 
+	cd Gradient
+
+	# 替換app.js和start.js
+	rm $HOME/Gradient/app.js 
+	wget -O app.js https://raw.githubusercontent.com/taiwanJK/Node/main/gradient/app.js
+	rm $HOME/Gradient/start.js
+	wget -O app.js https://raw.githubusercontent.com/taiwanJK/Node/main/gradient/start.js 
+
 	# 提示用户输入 代理資訊
 	read -p "请输入您的 proxy: " PROXY_INFO
 
@@ -19,6 +27,22 @@ function install_gradient () {
 
 	# 获取用户密码
 	read -s -p "请输入您的密码: " user_password
+
+	# 获取socks5帳號
+	read -p "请输入您的socks5帳號: " socks5_username
+
+	# 获取socks5密碼
+	read -p "请输入您的socks5密碼: " socks5_password
+
+	# 运行容器
+	echo -e "\n开始运行 Docker 容器..."
+	docker run -d \
+						-e APP_USER="$user_email" \
+						-e APP_PASS="$user_password" \
+						-e SOCKS5_USERNAME="$socks5_username" \
+						-e SOCKS5_PASSWORD="$socks5_password" \
+						-v "$PROXIES_FILE:/app/proxies.txt" \
+						overtrue/gradient-bot
 
 	# 提示用户按任意鍵返回主選單
 	read -n 1 -s -r -p "按任意鍵返回主選單..."
