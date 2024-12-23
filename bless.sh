@@ -54,13 +54,13 @@ EOF
     echo "配置文件 config.js 已創建"
 
     # 修改index.js，將詢問是否啟動代理程式碼註解並將useProxy設為false
-    sed -i 's/useProxy = await promptUseProxy();/useProxy = false;/g' index.js
-    sed -i '/logTimestamped(`使用代理: ${useProxy ? '\''是'\'' : '\''否'\''}`, colors.info);/ s/^/\/\//g' index.js
+    # sed -i 's/useProxy = await promptUseProxy();/useProxy = false;/g' index.js
+    # sed -i '/logTimestamped(`使用代理: ${useProxy ? '\''是'\'' : '\''否'\''}`, colors.info);/ s/^/\/\//g' index.js
     
     # 安裝專案所需套件
     npm install
     # 透過pm2啟動節點運行
-    pm2 start index.js --name Bless
+    # pm2 start index.js --name Bless
 
     # 提示用户按任意鍵返回主選單
     read -n 1 -s -r -p "按任意鍵返回主選單..."
