@@ -59,6 +59,7 @@ EOF
     
     # 安裝專案所需套件
     sudo npm install
+		sudo npm install socks-proxy-agent
 
 		# 建立screen會話
     screen -S Bless -dm
