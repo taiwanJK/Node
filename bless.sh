@@ -58,9 +58,13 @@ EOF
     # sed -i '/logTimestamped(`使用代理: ${useProxy ? '\''是'\'' : '\''否'\''}`, colors.info);/ s/^/\/\//g' index.js
     
     # 安裝專案所需套件
-    npm install
-    # 透過pm2啟動節點運行
-    # pm2 start index.js --name Bless
+    sudo npm install
+
+		# 建立screen會話
+    screen -S Bless -dm
+
+    # 手動操作
+    echo "請進入screen會話, 完成剩餘操作"
 
     # 提示用户按任意鍵返回主選單
     read -n 1 -s -r -p "按任意鍵返回主選單..."
