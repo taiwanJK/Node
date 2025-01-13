@@ -6,14 +6,18 @@ function install_humanity () {
     cd Humanity_Bot
 
     # 腳本下載路徑
-    read -p "請輸入腳本下載路徑: " PROJECT_PATH
+    read -p "請輸入腳本資源下載路徑: " PROJECT_PATH
+    read -p "請輸入腳本資源檔名: " PROJECT_NAME
 
-    git clone $PROJECT_PATH
+    wget $PROJECT_PATH
+    unzip $PROJECT_NAME
+    
     cd Humanity_Linux || { echo "进入目录失败"; exit 1; }
+    chmod +x Humanity_Linux
 
     # 下載生成錢包腳本
-    wget -O bot.js https://raw.githubusercontent.com/taiwanJK/Node/main/humanity/generate_wallet.py
-    pip install eth-account
+    wget https://raw.githubusercontent.com/taiwanJK/Node/main/humanity/generate_wallet.py
+    pip3 install eth-account
 
     # 建立screen會話
     screen -S Humanity -dm
