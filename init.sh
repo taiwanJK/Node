@@ -94,6 +94,7 @@ function main_menu () {
         echo "203. NodePay 一鍵部署"
         echo "204. Grass 一鍵部署"
         echo "205. Gradient 一鍵部署"
+        echo "206. Humanity 一鍵部署"
         echo "---------------------已停項目---------------------"
         echo "-----------------------其他----------------------"
         echo "0. 退出腳本exit"
@@ -111,6 +112,7 @@ function main_menu () {
         203) wget -O nodepay.sh https://raw.githubusercontent.com/taiwanJK/Node/main/nodepay.sh && chmod +x nodepay.sh && ./nodepay.sh ;;
         204) wget -O grass.sh https://raw.githubusercontent.com/taiwanJK/Node/main/grass.sh && chmod +x grass.sh && ./grass.sh ;;
         205) wget -O gradient.sh https://raw.githubusercontent.com/taiwanJK/Node/main/gradient.sh && chmod +x gradient.sh && ./gradient.sh ;;
+        206) wget -O humanity.sh https://raw.githubusercontent.com/taiwanJK/Node/main/humanity.sh && chmod +x humanity.sh && ./humanity.sh ;;
         0) echo "退出腳本。"; exit 0 ;;
 	    *) echo "無效選項，請重新輸入。"; sleep 3 ;;
 	    esac
